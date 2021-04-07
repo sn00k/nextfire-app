@@ -11,6 +11,11 @@ export function useUserData() {
 
     if (user) {
       const ref = firestore.collection('users').doc(user.uid)
+
+      // firebase's onSnapshot returns a function that when
+      // called will unsubscribe from the data.
+      // onSnapshot itself takes a callback function that provides
+      // us with the latest document information from the db
       unsubscribe = ref.onSnapshot((doc) => {
         setUsername(doc.data()?.username)
       })
